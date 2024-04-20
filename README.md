@@ -1,60 +1,25 @@
-# Tiny AI Example Worker: Todo List
+# Cloudflare Workers OpenAPI 3.1
 
-[![TinyAI.id](https://img.shields.io/badge/Powered%20by-tiny.technology-blue)](https://tiny.technology)
+This is a Cloudflare Worker with OpenAPI 3.1 using [itty-router-openapi](https://github.com/cloudflare/itty-router-openapi).
 
-<!-- One click deploy to cloudflare -->
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/tinyai-id/tiny-ai-worker-todo-example)
+This is an example project made to be used as a quick start into building OpenAPI compliant Workers that generates the
+`openapi.json` schema automatically from code and validates the incoming request to the defined parameters or request body.
 
-This is an example of a Cloudflare Worker that uses Cloudflare Workers KV to store a simple todo list. It is a part of the Tiny AI platform.
+## Get started
 
-# Try before you deploy
+1. Sign up for [Cloudflare Workers](https://workers.dev). The free tier is more than enough for most use cases.
+2. Clone this project and install dependencies with `npm install`
+3. Run `wrangler login` to login to your Cloudflare account in wrangler
+4. Run `wrangler deploy` to publish the API to Cloudflare Workers
 
-Visit tiny.technology and attach as Worker to your chat.
+## Project structure
 
-URL: https://tiny-ai-worker-todo-example.cagatay.workers.dev/openapi.json
+1. Your main router is defined in `src/index.ts`.
+2. Each endpoint has its own file in `src/endpoints/`.
+3. For more information read the [itty-router-openapi official documentation](https://cloudflare.github.io/itty-router-openapi/).
 
-Result should be similar:
-![Tiny AI Worker Todo Example](./assets/tiny-ai-worker-todo-example.png)
+## Development
 
-
-# Prerequisites
-
-- Node.js
-- Wrangler CLI
-- Cloudflare Workers account
-- Cloudflare Workers KV
-
-
-# Configuration
-- Create a new Cloudflare Workers KV namespace
-> https://developers.cloudflare.com/kv/reference/how-kv-works/
-- Update the wrangler.toml file with your Cloudflare account ID and KV namespace ID
-
-```
-kv_namespaces = [
-  { binding = "TODO_LIST", id = "YOUR_KV_NAMESPACE_ID" }
-]
-```
-
-# Installation
-
-```bash
-git clone git@github.com:TinyAI-ID/tiny-ai-worker-todo-example.git;
-cd tiny-ai-worker-todo-example;
-npm install;
-```
-
-# Usage
-
-```bash
-wrangler publish
-```
-
-# Development
-
-```bash
-wrangler dev
-```
-
-# License
-MIT-0
+1. Run `wrangler dev` to start a local instance of the API.
+2. Open `http://localhost:9000/` in your browser to see the Swagger interface where you can try the endpoints.
+3. Changes made in the `src/` folder will automatically trigger the server to reload, you only need to refresh the Swagger interface.

@@ -1,7 +1,9 @@
-name = "tiny-ai-worker-todo-example"
+#:schema node_modules/wrangler/config-schema.json
+name = "tiny-ai-worker"
 main = "src/index.ts"
-compatibility_date = "2023-04-07"
+compatibility_date = "2024-04-19"
 
+# You can run `pnpm run cf-typegen` to generate worker-configuration.d.ts
 kv_namespaces = [
-  { binding = "MY_TODOS", id = "c3c80be52de349b69f8efa9f3df00329" }
+    { binding = "MY_TODO", id = "3baeeaaf4768475a9fee8f03f7866a46" }
 ]
