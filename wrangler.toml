@@ -5,5 +5,6 @@ compatibility_date = "2024-04-19"
 
 # You can run `pnpm run cf-typegen` to generate worker-configuration.d.ts
 kv_namespaces = [
-    { binding = "MY_TODO", id = "3baeeaaf4768475a9fee8f03f7866a46" }
+    { binding = "MY_TODO", id = "3baeeaaf4768475a9fee8f03f7866a46" },
+    { binding = "MY_LIST", id = "831ef10b308348aeba6f9dc0f9a4cb1d" }
 ]
