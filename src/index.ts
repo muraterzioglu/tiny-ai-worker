@@ -1,5 +1,5 @@
 import { OpenAPIRouter } from "@cloudflare/itty-router-openapi";
-import { TaskCreate, TaskDelete, TaskFetch, TaskList } from './endpoints';
+import { TaskCreate, TaskDelete, TaskFetch, ListFetch, ListCreate } from './endpoints';
 
 export const router = OpenAPIRouter({
 	schema: {
@@ -21,7 +21,8 @@ export const router = OpenAPIRouter({
 	},
 });
 
-router.get("/api/tasks/", TaskList);
+router.get("/api/lists/:listSlug/", ListFetch);
+router.post("/api/lists/", ListCreate);
 router.post("/api/tasks/", TaskCreate);
 router.get("/api/tasks/:taskSlug/", TaskFetch);
 router.delete("/api/tasks/:taskSlug/", TaskDelete);
