@@ -1,22 +1,16 @@
 import {
 	OpenAPIRoute,
-	OpenAPIRouteSchema,
-	Query,
+	OpenAPIRouteSchema, Path,
 } from "@cloudflare/itty-router-openapi";
-import { Task } from "../types";
+import { List, Task } from "../types";
 
-export class TaskList extends OpenAPIRoute {
+export class ListFetch extends OpenAPIRoute {
 	static schema: OpenAPIRouteSchema = {
-		tags: ["Tasks"],
+		tags: ["Lists"],
 		summary: "List Tasks",
 		parameters: {
-			page: Query(Number, {
-				description: "Page number",
-				default: 0,
-			}),
-			isCompleted: Query(Boolean, {
-				description: "Filter by completed flag",
-				required: false,
+			listSlug: Path(String, {
+				description: "List slug",
 			}),
 		},
 		responses: {
@@ -25,8 +19,15 @@ export class TaskList extends OpenAPIRoute {
 				schema: {
 					success: Boolean,
 					result: {
+						list: List,
 						tasks: [Task],
 					},
+				},
+			},
+			"404": {
+				description: "The list with that slug is not found",
+				schema: {
+					success: false,
 				},
 			},
 		},
@@ -38,29 +39,24 @@ export class TaskList extends OpenAPIRoute {
 		context: any,
 		data: Record<string, any>
 	) {
-		// Retrieve the validated parameters
-		const { page, isCompleted } = data.query;
-
 		// Implement your own object list here
+		const { listSlug } = data.params;
+
+		// Implement your own object insertion here
+		const listValue = await env.MY_LIST.get(listSlug)
+		if (!listValue) {
+			return Response.json({ success: false }, { status: 404 })
+		}
+
+		const taskValue = await env.MY_TODO.list({ prefix: `${listSlug}:` });
 
 		return {
 			success: true,
-			tasks: [
-				{
-					name: "Clean my room",
-					slug: "clean-room",
-					description: null,
-					completed: false,
-					due_date: "2025-01-05",
-				},
-				{
-					name: "Build something awesome with Cloudflare Workers",
-					slug: "cloudflare-workers",
-					description: "Lorem Ipsum",
-					completed: true,
-					due_date: "2022-12-24",
-				},
-			],
+			list: {
+				slug: listSlug,
+				list: listValue
+			},
+			tasks: taskValue.keys
 		};
 	}
 }

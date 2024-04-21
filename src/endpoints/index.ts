@@ -1,6 +1,7 @@
 import { TaskCreate } from "./taskCreate";
 import { TaskDelete } from "./taskDelete";
 import { TaskFetch } from "./taskFetch";
-import { TaskList } from "./taskList";
+import { ListCreate } from "./listCreate";
+import { ListFetch } from "./listFetch";
 
-export { TaskCreate, TaskDelete, TaskFetch, TaskList };
+export { TaskCreate, TaskDelete, TaskFetch, ListCreate, ListFetch };
