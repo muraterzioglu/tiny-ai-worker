@@ -64,10 +64,8 @@ export class TaskFetch extends OpenAPIRoute {
 			success: true,
 			task: {
 				name: "my task",
+				list: "my-list",
 				slug: taskSlug,
-				description: "this needs to be done",
-				completed: false,
-				due_date: new Date().toISOString().slice(0, 10),
 			},
 		};
 	}

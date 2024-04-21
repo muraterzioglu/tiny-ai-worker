@@ -20,11 +20,17 @@ export class ListFetch extends OpenAPIRoute {
 					success: Boolean,
 					result: {
 						list: List,
-						tasks: [Task],
+						tasks: [{
+							name: String,
+							metadata: {
+								slug: String,
+								task: String
+							}
+						}],
 					},
 				},
 			},
-			"404": {
+			"400": {
 				description: "The list with that slug is not found",
 				schema: {
 					success: false,
@@ -45,11 +51,10 @@ export class ListFetch extends OpenAPIRoute {
 		// Implement your own object insertion here
 		const listValue = await env.MY_LIST.get(listSlug)
 		if (!listValue) {
-			return Response.json({ success: false }, { status: 404 })
+			return Response.json({ success: false }, { status: 400 })
 		}
 
 		const taskValue = await env.MY_TODO.list({ prefix: `${listSlug}:` });
-
 		return {
 			success: true,
 			list: {
